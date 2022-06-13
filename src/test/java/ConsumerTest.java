@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,6 +25,14 @@ public class ConsumerTest {
     void consumer(){
         Consum consum = new Consum();
         consum.accept(num);
+        assertThat(byteArrayOutputStream.toString()).isEqualTo("pow(9) is 81");
+    }
+
+    @Test
+    @DisplayName("람다식 적용")
+    void consumerLambda(){
+        Consumer<Integer> consumer = (i) -> System.out.print("pow(" + i + ") " + "is " + i * i);
+        consumer.accept(num);
         assertThat(byteArrayOutputStream.toString()).isEqualTo("pow(9) is 81");
     }
 }
