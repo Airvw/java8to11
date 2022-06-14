@@ -20,12 +20,7 @@ public class PredicateTest {
     @Test
     @DisplayName("람다식 적용")
     void predicateLambda(){
-        Predicate<Integer> predicate = (i) -> {
-            if(i % 2 == 0){
-                return true;
-            }
-            return false;
-        };
+        Predicate<Integer> predicate = (i) -> i % 2 == 0;
         assertThat(predicate.test(num)).isEqualTo(true);
     }
 }
