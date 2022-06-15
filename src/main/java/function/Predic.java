@@ -7,9 +7,6 @@ public class Predic implements Predicate<Integer> {
 
     @Override
     public boolean test(Integer num) {
-        if(num % 2 == 0){
-            return true;
-        }
-        return false;
+        return num % 2 == 0;
     }
 }
