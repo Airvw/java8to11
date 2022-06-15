@@ -14,16 +14,17 @@ public class ConsumerTest {
     private int num = 9;
     private final PrintStream printStream = System.out;
     private final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    private Consum consum;
 
     @BeforeEach
     void setUp(){
+        consum = new Consum();
         System.setOut(new PrintStream(byteArrayOutputStream));
     }
 
     @Test
     @DisplayName("람다식 적용X")
     void consumer(){
-        Consum consum = new Consum();
         consum.accept(num);
         assertThat(byteArrayOutputStream.toString()).isEqualTo("pow(9) is 81");
     }
@@ -31,7 +32,7 @@ public class ConsumerTest {
     @Test
     @DisplayName("람다식 적용")
     void consumerLambda(){
-        Consumer<Integer> consumer = (i) -> System.out.print("pow(" + i + ") " + "is " + i * i);
+        Consumer<Integer> consumer = consum::accept;
         consumer.accept(num);
         assertThat(byteArrayOutputStream.toString()).isEqualTo("pow(9) is 81");
     }
