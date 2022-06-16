@@ -1,3 +1,5 @@
+package function;
+
 import function.Predic;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
