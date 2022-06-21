@@ -3,10 +3,12 @@ package stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -79,9 +81,16 @@ public class streamTest {
                 "The Java, 8 to 11\r\n");
     }
 
-//    @Test
-//    @DisplayName("10부터 1씩 증가하는 무제한 스트림 중에서 앞에 10개 빼고 최대 10개 까지만")
-//
+    @Test
+    @DisplayName("10부터 1씩 증가하는 무제한 스트림 중에서 앞에 10개 빼고 최대 10개 까지만")
+    void increaseStream(){
+        Stream.iterate(10, i -> i + 1)
+                .skip(10)
+                .limit(10)
+                .forEach(System.out::print);
+        assertThat(byteArrayOutputStream.toString()).isEqualTo("20212223242526272829");
+    }
+
 //    @Test
 //    @DisplayName("자바 수업 중에 Test가 들어있는 수업이 있는지 확인")
 }
