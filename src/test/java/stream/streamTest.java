@@ -1,12 +1,49 @@
 package stream;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+
 public class streamTest {
+
+    private final PrintStream printStream = System.out;
+    private final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    private List<OnlineClass> springClasses;
+    private List<OnlineClass> javaClasses;
+    private List<List<OnlineClass>> airvwEvents;
+
+    @BeforeEach
+    void setUp(){
+        System.setOut(new PrintStream(byteArrayOutputStream));
+        springClasses = new ArrayList<>();
+        javaClasses = new ArrayList<>();
+        airvwEvents = new ArrayList<>();
+
+        springClasses.add(new OnlineClass(1, "spring boot", true));
+        springClasses.add(new OnlineClass(2, "spring data jpa", true));
+        springClasses.add(new OnlineClass(3, "spring mvc", false));
+        springClasses.add(new OnlineClass(4, "spring core", false));
+        springClasses.add(new OnlineClass(5, "rest api development", false));
+        javaClasses.add(new OnlineClass(6, "The Java, Test", true));
+        javaClasses.add(new OnlineClass(7, "The Java, Code manipulation", true));
+        javaClasses.add(new OnlineClass(8, "The Java, 8 to 11", false));
+        airvwEvents.add(springClasses, javaClasses);
+    }
 
     @Test
     @DisplayName("spring으로 시작하는 수업")
+    void startSpring(){
+        springClasses.stream().filter(sc -> sc.getTitle().startsWith("spring"))
+                .forEach(sc -> System.out.println(sc.getTitle()));
+        assertThat(byteArrayOutputStream.toString()).isEqualTo("spring boot\nspring data jpa\nspring mvc\nspring core");
+    }
 
     @Test
     @DisplayName("close 되지 않은 수업")
