@@ -54,9 +54,17 @@ public class streamTest {
         assertThat(byteArrayOutputStream.toString()).isEqualTo("spring mvc\r\nspring core\r\nrest api development\r\n");
     }
 
-//    @Test
-//    @DisplayName("수업 이름만 모아서 스트림 만들기")
-//
+    @Test
+    @DisplayName("수업 이름만 모아서 스트림 만들기")
+    void getTitles(){
+        springClasses.stream().map(sc -> sc.getTitle()).forEach(s -> System.out.println(s));
+        assertThat(byteArrayOutputStream.toString()).isEqualTo("spring boot\r\n" +
+                "spring data jpa\r\n" +
+                "spring mvc\r\n" +
+                "spring core\r\n" +
+                "rest api development\r\n");
+    }
+
 //    @Test
 //    @DisplayName("두 수업 목록에 들어있는 모든 수업 아이디 출력")
 //
