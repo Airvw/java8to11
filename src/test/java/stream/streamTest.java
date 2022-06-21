@@ -46,9 +46,14 @@ public class streamTest {
         assertThat(byteArrayOutputStream.toString()).isEqualTo("spring boot\r\nspring data jpa\r\nspring mvc\r\nspring core\r\n");
     }
 
-//    @Test
-//    @DisplayName("close 되지 않은 수업")
-//
+    @Test
+    @DisplayName("close 되지 않은 수업")
+    void notClosed(){
+        springClasses.stream().filter(sc -> !sc.isClosed())
+                .forEach(sc -> System.out.println(sc.getTitle()));
+        assertThat(byteArrayOutputStream.toString()).isEqualTo("spring mvc\r\nspring core\r\nrest api development\r\n");
+    }
+
 //    @Test
 //    @DisplayName("수업 이름만 모아서 스트림 만들기")
 //
