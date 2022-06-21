@@ -65,9 +65,20 @@ public class streamTest {
                 "rest api development\r\n");
     }
 
-//    @Test
-//    @DisplayName("두 수업 목록에 들어있는 모든 수업 아이디 출력")
-//
+    @Test
+    @DisplayName("두 수업 목록에 들어있는 모든 수업 아이디 출력")
+    void classesTitles(){
+        airvwEvents.stream().forEach(events -> events.stream().map(c -> c.getTitle()).forEach(System.out::println));
+        assertThat(byteArrayOutputStream.toString()).isEqualTo("spring boot\r\n" +
+                "spring data jpa\r\n" +
+                "spring mvc\r\n" +
+                "spring core\r\n" +
+                "rest api development\r\n" +
+                "The Java, Test\r\n" +
+                "The Java, Code manipulation\r\n" +
+                "The Java, 8 to 11\r\n");
+    }
+
 //    @Test
 //    @DisplayName("10부터 1씩 증가하는 무제한 스트림 중에서 앞에 10개 빼고 최대 10개 까지만")
 //
