@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -91,6 +92,19 @@ public class streamTest {
         assertThat(byteArrayOutputStream.toString()).isEqualTo("20212223242526272829");
     }
 
-//    @Test
-//    @DisplayName("자바 수업 중에 Test가 들어있는 수업이 있는지 확인")
+    @Test
+    @DisplayName("자바 수업 중에 Test가 들어있는 수업이 있는지 확인")
+    void anyTest(){
+        assertThat(javaClasses.stream().anyMatch(jc -> jc.getTitle().contains("Test"))).isTrue();
+    }
+
+    @Test
+    @DisplayName("스프링 수업 중에 제목에 spring이 들어간 것만 모아서 List로 만들기")
+    void makeSpringList(){
+        List<String> spirngLists = springClasses.stream()
+                .filter(sc -> sc.getTitle().contains("spring"))
+                .map(sc -> sc.getTitle())
+                .collect(Collectors.toList());
+        assertThat(spirngLists.size()).isEqualTo(4);
+    }
 }
