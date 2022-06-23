@@ -3,11 +3,12 @@ package stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -60,7 +61,7 @@ public class streamTest {
     @Test
     @DisplayName("수업 이름만 모아서 스트림 만들기")
     void getTitles(){
-        springClasses.stream().map(sc -> sc.getTitle()).forEach(s -> System.out.println(s));
+        springClasses.stream().map(OnlineClass::getTitle).forEach(System.out::println);
         assertThat(byteArrayOutputStream.toString()).isEqualTo("spring boot\r\n" +
                 "spring data jpa\r\n" +
                 "spring mvc\r\n" +
@@ -71,7 +72,9 @@ public class streamTest {
     @Test
     @DisplayName("두 수업 목록에 들어있는 모든 수업 아이디 출력")
     void classesTitles(){
-        airvwEvents.stream().forEach(events -> events.stream().map(c -> c.getTitle()).forEach(System.out::println));
+        airvwEvents.stream().flatMap(Collection::stream)
+                .map(OnlineClass::getTitle)
+                .forEach(System.out::println);
         assertThat(byteArrayOutputStream.toString()).isEqualTo("spring boot\r\n" +
                 "spring data jpa\r\n" +
                 "spring mvc\r\n" +
@@ -102,8 +105,8 @@ public class streamTest {
     @DisplayName("스프링 수업 중에 제목에 spring이 들어간 것만 모아서 List로 만들기")
     void makeSpringList(){
         List<String> spirngLists = springClasses.stream()
-                .filter(sc -> sc.getTitle().contains("spring"))
-                .map(sc -> sc.getTitle())
+                .map(OnlineClass::getTitle)
+                .filter(sc -> sc.contains("spring"))
                 .collect(Collectors.toList());
         assertThat(spirngLists.size()).isEqualTo(4);
     }
