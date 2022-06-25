@@ -10,6 +10,7 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static stream.OnlineClass.createNewClass;
 
 public class OptionalTest {
 
@@ -65,5 +66,22 @@ public class OptionalTest {
         springClass.ifPresent(oc -> System.out.print(oc.getId()));
         jpaClass.ifPresent(oc -> System.out.print(oc.getId()));
         assertThat(byteArrayOutputStream.toString()).isEqualTo("1");
+    }
+
+    @Test
+    void orElseTest(){
+        Optional<OnlineClass> springClass = springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("spring"))
+                .findFirst();
+
+        Optional<OnlineClass> jpaClass = springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("jpa"))
+                .findAny();
+
+        OnlineClass thisClass = springClass.orElse(createNewClass());
+        assertThat(thisClass.getTitle()).isEqualTo("spring boot");
+
+        OnlineClass newClass = jpaClass.orElse(createNewClass());
+        assertThat(newClass.getTitle()).isEqualTo("jpa");
     }
 }

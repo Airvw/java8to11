@@ -35,4 +35,9 @@ public class OnlineClass {
     public void setClosed(boolean closed) {
         this.closed = closed;
     }
+
+    public static OnlineClass createNewClass(){
+        return new OnlineClass(10, "jpa", false);
+    }
+
 }
