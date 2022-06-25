@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class streamTest {
+public class StreamTest {
 
     private final PrintStream printStream = System.out;
     private final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
